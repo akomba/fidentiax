@@ -2,7 +2,6 @@ pragma solidity ^0.4.15;
 
 // change .17 and the constans > pure in the library!!!
 
-
 /**
  * @title Ownable
  * @dev The Ownable contract has an owner address, and provides basic authorization control
@@ -102,10 +101,10 @@ contract BasicToken is ERC20Basic {
   mapping(address => uint256) balances;
 
   /**
-   * @dev transfer token for a specified address
-   * @param _to The address to transfer to.
-   * @param _value The amount to be transferred.
-   */
+  * @dev transfer token for a specified address
+  * @param _to The address to transfer to.
+    * @param _value The amount to be transferred.
+      */
   function transfer(address _to, uint256 _value) public returns (bool){
     balances[msg.sender] = balances[msg.sender].sub(_value);
     balances[_to] = balances[_to].add(_value);
@@ -114,10 +113,10 @@ contract BasicToken is ERC20Basic {
   }
 
   /**
-   * @dev Gets the balance of the specified address.
-   * @param _owner The address to query the the balance of.
-   * @return An uint256 representing the amount owned by the passed address.
-   */
+  * @dev Gets the balance of the specified address.
+  * @param _owner The address to query the the balance of.
+    * @return An uint256 representing the amount owned by the passed address.
+    */
   function balanceOf(address _owner) public constant returns (uint256 balance) {
     return balances[_owner];
   }
@@ -166,10 +165,10 @@ contract StandardToken is ERC20, BasicToken {
   }
 
   /**
-   * @dev Function to check the amount of tokens that an owner allowed to a spender.
-   * @param _owner address The address which owns the funds.
-   * @param _spender address The address which will spend the funds.
-   * @return A uint256 specifing the amount of tokens still avaible for the spender.
+  * @dev Function to check the amount of tokens that an owner allowed to a spender.
+  * @param _owner address The address which owns the funds.
+    * @param _spender address The address which will spend the funds.
+    * @return A uint256 specifing the amount of tokens still avaible for the spender.
    */
 
   function allowance(address _owner, address _spender) public constant returns (uint256 remaining) {
@@ -196,10 +195,10 @@ contract MintableToken is StandardToken, Ownable {
   }
 
   /**
-   * @dev Function to mint tokens
-   * @param _to The address that will recieve the minted tokens.
-   * @param _amount The amount of tokens to mint.
-   * @return A boolean that indicates if the operation was successful.
+  * @dev Function to mint tokens
+  * @param _to The address that will recieve the minted tokens.
+    * @param _amount The amount of tokens to mint.
+    * @return A boolean that indicates if the operation was successful.
    */
   function mint(address _to, uint256 _amount) onlyOwner canMint public returns (bool) {
     totalSupply = totalSupply.add(_amount);
@@ -209,8 +208,8 @@ contract MintableToken is StandardToken, Ownable {
   }
 
   /**
-   * @dev Function to stop minting new tokens.
-   * @return True if the operation was successful.
+  * @dev Function to stop minting new tokens.
+  * @return True if the operation was successful.
    */
   function finishMinting() onlyOwner public returns (bool) {
     mintingFinished = true;
@@ -229,7 +228,7 @@ contract FidentiaXToken is MintableToken {
   bool public tradingStarted = false;
 
   /**
-   * @dev modifier that throws if trading has not started yet
+  * @dev modifier that throws if trading has not started yet
    */
   modifier hasStartedTrading() {
     require(tradingStarted);
@@ -244,9 +243,9 @@ contract FidentiaXToken is MintableToken {
   }
 
   /**
-   * @dev Allows anyone to transfer the Change tokens once trading has started
-   * @param _to the recipient address of the tokens.
-   * @param _value number of tokens to be transfered.
+  * @dev Allows anyone to transfer the Change tokens once trading has started
+  * @param _to the recipient address of the tokens.
+  * @param _value number of tokens to be transfered.
    */
   function transfer(address _to, uint _value) hasStartedTrading public returns (bool) {
     return super.transfer(_to, _value);
@@ -284,7 +283,7 @@ contract FidentiaXTokenSale is Ownable {
   uint256 public startTimestamp;
   uint256 public endTimestamp;
 
-   // timestamps for tiers
+  // timestamps for tiers
   uint256 public tier1Timestamp;
   uint256 public tier2Timestamp;
 
@@ -342,7 +341,7 @@ contract FidentiaXTokenSale is Ownable {
 
   function FidentiaXTokenSale() public {
     startTimestamp = 1509930000; // change!!! 1509930000  Monday November 06, 2017 09:00:00 (am) in time zone Asia/Singapore (SGT)
-                                //1508684400;
+    //1508684400;
     endTimestamp = 1512489599;   //  December 05, 2017 23:59:59 (pm) in time zone Asia/Singapore (SGT) ( GMT +08:00 )
     tier1Timestamp = 1510102799; //   November 08, 2017 08:59:59 (am) in time zone Asia/Singapore (SGT)
     tier2Timestamp = 1510361999; //   November 11, 2017 08:59:59 (am) in time zone Asia/Singapore (SGT)
@@ -355,13 +354,13 @@ contract FidentiaXTokenSale is Ownable {
 
   /**
   * @dev Calculates the amount of bonus coins the buyer gets
-  */
+   */
   function getRateAt(uint256 at) internal constant returns (uint256) {
-      if (at < (tier1Timestamp))
-          return 575;
-      if (at < (tier2Timestamp))
-          return 550;
-      return 500;
+    if (at < (tier1Timestamp))
+      return 575;
+    if (at < (tier2Timestamp))
+      return 550;
+    return 500;
   }
 
   // @return true if crowdsale event has ended
@@ -424,14 +423,14 @@ contract FidentiaXTokenSale is Ownable {
 
   /**
   * @dev set a new CS representative
-   */
+  */
   function setCS(address newCS) onlyOwner public {
     cs = newCS;
   }
 
   /**
   * @dev set a new Fx representative
-   */
+  */
   function setFx(address newFx) onlyOwner public {
     fx = newFx;
   }
@@ -446,7 +445,7 @@ contract FidentiaXTokenSale is Ownable {
     }
     tokenRaised = tokenRaised.add(_tokens); // so we can go slightly over
     token.mint(beneficiary, _tokens);
-    TokenPurchase(beneficiary, beneficiary, amount, _tokens);    
+    TokenPurchase(beneficiary, beneficiary, amount, _tokens);
   }
 
   // low level token purchase function
@@ -474,8 +473,11 @@ contract FidentiaXTokenSale is Ownable {
   function finishSale() public onlyOwner {
     require(hasEnded());
     // assign the rest of the 100M tokens to the reserve
-    uint unassigned = maxTokens.sub(tokenRaised);
-    token.mint(multiSig,unassigned);
+    uint unassigned;
+    if(maxTokens > tokenRaised) {
+      unassigned  = maxTokens.sub(tokenRaised);
+      token.mint(multiSig,unassigned);
+    }
     token.transferOwnership(owner);
     SaleClosed();
   }
@@ -488,5 +490,4 @@ contract FidentiaXTokenSale is Ownable {
   function emergencyERC20Drain( ERC20 oddToken, uint amount ) public {
     oddToken.transfer(owner, amount);
   }
-
 }
