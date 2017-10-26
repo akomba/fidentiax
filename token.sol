@@ -369,8 +369,7 @@ contract FidentiaXTokenSale is Ownable {
     if (tokenRaised >= tokensForSale)
       return true; // if we reach the tokensForSale
     return false;
-  }
-
+ }
   /**
   * @dev throws if person sending is not contract owner or cs role
    */
@@ -423,7 +422,7 @@ contract FidentiaXTokenSale is Ownable {
   /**
   * @dev set a new CS representative
   */
-token.  function setCS(address newCS) onlyOwner public {
+  function setCS(address newCS) onlyOwner public {
     cs = newCS;
   }
 
