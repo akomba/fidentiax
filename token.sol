@@ -340,7 +340,7 @@ contract FidentiaXTokenSale is Ownable {
   event SaleClosed();
 
   function FidentiaXTokenSale() public {
-    startTimestamp = 1509930000; // change!!! 1509930000  Monday November 06, 2017 09:00:00 (am) in time zone Asia/Singapore (SGT)
+    startTimestamp = 1509930000; //  Monday November 06, 2017 09:00:00 (am) in time zone Asia/Singapore (SGT)
     //1508684400;
     endTimestamp = 1512489599;   //  December 05, 2017 23:59:59 (pm) in time zone Asia/Singapore (SGT) ( GMT +08:00 )
     tier1Timestamp = 1510102799; //   November 08, 2017 08:59:59 (am) in time zone Asia/Singapore (SGT)
@@ -478,6 +478,7 @@ contract FidentiaXTokenSale is Ownable {
       unassigned  = maxTokens.sub(tokenRaised);
       token.mint(multiSig,unassigned);
     }
+    finishMinting();
     token.transferOwnership(owner);
     SaleClosed();
   }
