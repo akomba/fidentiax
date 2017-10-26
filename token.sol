@@ -423,7 +423,7 @@ contract FidentiaXTokenSale is Ownable {
   /**
   * @dev set a new CS representative
   */
-  function setCS(address newCS) onlyOwner public {
+token.  function setCS(address newCS) onlyOwner public {
     cs = newCS;
   }
 
@@ -477,7 +477,7 @@ contract FidentiaXTokenSale is Ownable {
       unassigned  = maxTokens.sub(tokenRaised);
       token.mint(multiSig,unassigned);
     }
-    finishMinting();
+    token.finishMinting();
     token.transferOwnership(owner);
     SaleClosed();
   }
