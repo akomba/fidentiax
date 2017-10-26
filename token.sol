@@ -1,6 +1,5 @@
-pragma solidity ^0.4.15;
+pragma solidity ^0.4.16;
 
-// change .17 and the constans > pure in the library!!!
 
 /**
  * @title Ownable
